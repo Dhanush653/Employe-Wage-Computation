@@ -1,27 +1,28 @@
 package com.bridgelabz.wagecomputation;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class EmpWageBuilderArray implements EmpWageBuilderInterface {
     public static final int IS_PART_TIME = 1;
     public static final int IS_FULL_TIME = 2;
 
-    private int numOfCompany = 0;
-    private EmployeeWage[] companyEmpWageArray;
+    private List<EmployeeWage> companyEmpWageList;
 
     public EmpWageBuilderArray() {
-        companyEmpWageArray = new EmployeeWage[5];
+        companyEmpWageList = new ArrayList<>();
     }
 
     @Override
     public void addCompanyEmpWage(String company, int empRatePerHour, int numOfWorkingDays, int maxHoursPerMonth) {
-        companyEmpWageArray[numOfCompany] = new EmployeeWage(company, empRatePerHour, numOfWorkingDays, maxHoursPerMonth);
-        numOfCompany++;
+        companyEmpWageList.add(new EmployeeWage(company, empRatePerHour, numOfWorkingDays, maxHoursPerMonth));
     }
 
     @Override
     public void computeEmpWage() {
-        for (int i = 0; i < numOfCompany; i++) {
-            companyEmpWageArray[i].setTotalEmpWage(this.computeEmpWage(companyEmpWageArray[i]));
-            System.out.println(companyEmpWageArray[i]);
+        for (EmployeeWage companyEmpWage : companyEmpWageList) {
+            companyEmpWage.setTotalEmpWage(this.computeEmpWage(companyEmpWage));
+            System.out.println(companyEmpWage);
         }
     }
 
@@ -46,6 +47,11 @@ public class EmpWageBuilderArray implements EmpWageBuilderInterface {
             System.out.println("Day#: " + totalWorkingDays + " Emp Hr: " + empHrs);
         }
         return totalEmpHrs * companyEmpWage.empRatePerHour;
+    }
+
+    @Override
+    public List<EmployeeWage> getCompanyEmpWages() {
+        return companyEmpWageList;
     }
 
     public static void main(String[] args) {
