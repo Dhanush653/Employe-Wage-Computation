@@ -1,6 +1,5 @@
 package com.bridgelabz.wagecomputation;
 
-
 public class EmployeeWage {
     public final String company;
     public final int empRatePerHour;
